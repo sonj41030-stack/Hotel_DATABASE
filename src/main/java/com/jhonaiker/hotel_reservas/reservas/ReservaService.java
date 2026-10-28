@@ -76,6 +76,16 @@ public class ReservaService {
         reserva.setEstado("CANCELADA");
         return ReservaResponse.de(reservaRepository.save(reserva));
     }
+    @Transactional
+    public ReservaResponse confirmar(Long id) {
+        Reserva reserva = obtener(id);
+        if ("CANCELADA".equals(reserva.getEstado())) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT, "No se puede confirmar una reserva cancelada");
+        }
+        reserva.setEstado("CONFIRMADA");
+        return ReservaResponse.de(reservaRepository.save(reserva));
+    }
 
     private Reserva obtener(Long id) {
         return reservaRepository.findById(id)

@@ -21,6 +21,14 @@ public class DataInitializer {
                                    ClienteRepository clienteRepository,
                                    HabitacionRepository habitacionRepository) {
         return args -> {
+            // Si ya hay datos, no volver a insertar los de prueba
+            if (reservaRepository.count() > 0
+                    || clienteRepository.count() > 0
+                    || habitacionRepository.count() > 0) {
+                System.out.println("Datos de prueba ya existentes, se omite la carga inicial.");
+                return;
+            }
+
             // 1. Crear y guardar un cliente de prueba
             Cliente cliente = new Cliente();
             cliente.setRut("17.482.915-3");

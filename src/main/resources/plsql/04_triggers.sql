@@ -26,4 +26,4 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20010,
         'No se pueden eliminar reservas. Use pkg_reservas.cancelar_reserva');
 END trg_reservas_sin_borrado;
-/¿
+/
